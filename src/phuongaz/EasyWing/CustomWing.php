@@ -25,7 +25,7 @@ class CustomWing {
 				if($flag == 0) continue;
 				$kx = $x - (int) ($l2 / 2);
 				$ky = ($y - (int) ($l1 / 2)) * (-1);
-				$this->vector3[] = new Vector3($kx, $this->scale * $ky + 1.7);
+				$this->vector3[] = [new Vector3($kx, $this->scale * $ky + 1.7), $flag];
 			}
 		}
 	}
@@ -38,11 +38,11 @@ class CustomWing {
 		$level = $pos->getLevel();
 		$sin = sin(deg2rad($angle));
 		$cos = cos(deg2rad($angle));
-		foreach($this->vector3 as $vector3){
-			$r = $this->scale * $vector3->x;
+		foreach($this->vector3 as $data){
+			$r = $this->scale * $data[0]->x;
 			$px = $r * $cos;			
 			$pz = $r * $sin;
-			$level->addParticle(Loader::getInstance()->parseWing($pos->add($px, $vector3->y, $pz), $flag));
+			$level->addParticle(Loader::getInstance()->parseWing($pos->add($px, $data[0]->y, $pz), $data[1]));
 		}
 	}
 }
