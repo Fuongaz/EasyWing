@@ -12,35 +12,37 @@ class CustomWing {
 	private $scale = 0.3;
 	/** @var array */
 	private $shape = [];
+	/** @var array */
+	private $vector3 = [];
 
 	public function __construct(array $shape){
 		$this->shape = $shape;
+		$l1 = count($this->shape);
+		for($y = 0; $y < $l1; $y++) {
+			$l2 = count($this->shape[$y]);
+			for($x = 0; $x < $l2; $x++) {
+				$flag = $shape[$y][$x];
+				if($flag == 0) continue;
+				$kx = $x - (int) ($l2 / 2);
+				$ky = ($y - (int) ($l1 / 2)) * (-1);
+				$this->vector3[] = [new Vector3($kx, $this->scale * $ky + 1.7), $flag];
+			}
+		}
 	}
+
 	/**
 	* @param Position $pos
 	* @param float $angle
 	*/
 	public function draw(Position $pos, float $angle) :void{
 		$level = $pos->getLevel();
-		$l1 = count($this->shape);
 		$sin = sin(deg2rad($angle));
 		$cos = cos(deg2rad($angle));
-		for($y = 0; $y < $l1; $y++) {
-			$l2 = count($this->shape[$y]);
-			for($x = 0; $x < $l2; $x++) {
-				$flag = $this->shape[$y][$x];
-				if($flag == 0) continue;
-				$kx = $x - (int) ($l2 / 2);
-				$ky = $y - (int) ($l1 / 2);
-				$ky = $y * (-1);
-				$r = $this->scale * $kx;
-				$px = $r * $cos;
-				$py = $this->scale * $ky + 1.7;
-				$pz = $r * $sin;
-				$vec = $pos->add($px, $py, $pz);
-				$particle = Loader::getInstance()->parseWing($vec, $flag);
-				$level->addParticle($particle);
-			}
+		foreach($this->vector3 as $data){
+			$r = $this->scale * $data[0]->x;
+			$px = $r * $cos;			
+			$pz = $r * $sin;
+			$level->addParticle(Loader::getInstance()->parseWing($pos->add($px, $data[0]->y, $pz), $data[1]));
 		}
 	}
 }

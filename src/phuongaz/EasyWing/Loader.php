@@ -31,7 +31,6 @@ Class Loader extends PluginBase{
 			self::$wings[$wingName] = yaml_parse(file_get_contents($this->getDataFolder(). "wings/".$wingName.".yml"));
 		}
 		self::$instance = $this;
-		var_dump(self::$wings["example"]["shape"]);
 		$this->getServer()->getCommandMap()->register("wings", new WingsCommand());
 	}
 
