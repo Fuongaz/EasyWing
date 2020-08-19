@@ -4,23 +4,18 @@ namespace phuongaz\EasyWing;
 
 use pocketmine\level\Level;
 use pocketmine\level\Position;
-use pocketmine\level\particle\RedstoneParticle;
 use pocketmine\math\Vector3;
 
 class CustomWing {
 
 	/**@var int*/
-	private $scale = 0.3;	
-	/** @var array*/
-	private $shape = [
-		[0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0],
-		[0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0],
-		[1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-		[1,1,1,1,0,0,0,1,1,0,0,0,1,1,1,1],
-		[1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1],
-		[1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1]];
+	private $scale = 0.3;
+	/** @var array */
+	private $shape = [];
 
-
+	public function __construct(array $shape){
+		$this->shape = $shape;
+	}
 	/**
 	* @param Position $pos
 	* @param float $angle
@@ -43,7 +38,8 @@ class CustomWing {
 				$py = $this->scale * $ky + 1.7;
 				$pz = $r * $sin;
 				$vec = $pos->add($px, $py, $pz);
-				$level->addParticle(new RedstoneParticle($vec));
+				$particle = Loader::getInstance()->parseWing($vec, $flag);
+				$level->addParticle($particle);
 			}
 		}
 	}
