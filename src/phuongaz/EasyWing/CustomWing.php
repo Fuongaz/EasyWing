@@ -42,9 +42,7 @@ class CustomWing {
 			$r = $this->scale * $vector3->x;
 			$px = $r * $cos;			
 			$pz = $r * $sin;
-			$vec = $pos->add($px, $py, $pz);
-			$particle = Loader::getInstance()->parseWing($vec, $flag);
-			$level->addParticle($particle);
+			$level->addParticle(Loader::getInstance()->parseWing($pos->add($px, $py, $pz), $flag));
 		}
 	}
 }
