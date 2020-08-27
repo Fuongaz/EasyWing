@@ -28,7 +28,7 @@ Class Loader extends PluginBase{
 		$this->saveResource("wings/example.yml");
 		foreach(glob($this->getDataFolder(). "wings/*.yml") as $wingPath){
 			$wingName = pathinfo($wingPath, PATHINFO_FILENAME);
-			self::$wings[$wingName] = yaml_parse(file_get_contents($this->getDataFolder(). "wings/".$wingName.".yml"));
+			self::$wings[$wingName] = yaml_parse_file($wingPath);
 		}
 		self::$instance = $this;
 		$this->getServer()->getCommandMap()->register("wings", new WingsCommand());
