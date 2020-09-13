@@ -23,7 +23,7 @@ Class WingTask extends Task{
 	/**
 	* @param int $currentTick
 	*/
-	public function onRun(int $currentTask){
+	public function onRun(int $currentTick){
 		$player = $this->player;
 		$wing = new CustomWing($this->shape);
 		$wing->draw($player, $player->yaw);

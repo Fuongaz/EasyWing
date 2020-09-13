@@ -58,7 +58,7 @@ Class Loader extends PluginBase{
 	}
 
 	/**
-	* @param Vector3 $vec
+	* @param Vector3 $pos
 	* @param null|string $character
 	*/
 	public function parseWing(Vector3 $pos, $character) :Particle{
