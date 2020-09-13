@@ -1,3 +1,10 @@
+
+# Shapes:
+# 4 : Red Dust
+# 2: Green Dust
+# x: Redstone
+# F: Flame
+
 shape: [
 [0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0],
 [0,1,1,1,1,1,1,0,0,1,1,1,1,1,1,0],
@@ -6,4 +13,4 @@ shape: [
 [1,1,1,0,0,0,0,0,0,0,0,0,0,1,1,1],
 [1,1,0,0,0,0,0,0,0,0,0,0,0,0,1,1]]
 
-Wing-Name: "Example Wing"
+Wing-Name: "Example Wing" #Name wing
