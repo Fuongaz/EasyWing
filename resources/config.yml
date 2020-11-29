@@ -1,0 +1,6 @@
+tick-update: 10 #0.5s
+
+title: "WINGS FORM"
+
+turn-on: "Turn on wing"
+turn-off: "Turn off wing"

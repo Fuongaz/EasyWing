@@ -6,7 +6,7 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\Player;
 use phuongaz\EasyWing\task\WingTask;
 use phuongaz\EasyWing\command\WingsCommand;
-
+use phuongaz\EasyWing\utils\Particles;
 use pocketmine\level\particle\{
 	DustParticle,
 	FlameParticle,
@@ -14,8 +14,10 @@ use pocketmine\level\particle\{
 	Particle
 };
 use pocketmine\math\Vector3;
+use pocketmine\event\Listener;
+use pocketmine\event\player\PlayerQuitEvent;
 
-Class Loader extends PluginBase{
+Class Loader extends PluginBase implements Listener{
 
 	/** @var array */
 	private static $equip_players = [];
@@ -25,13 +27,25 @@ Class Loader extends PluginBase{
 	private static $instance;
 
 	public function onEnable() :void{
+		$this->saveDefaultConfig();
 		$this->saveResource("wings/example.yml");
 		foreach(glob($this->getDataFolder(). "wings/*.yml") as $wingPath){
 			$wingName = pathinfo($wingPath, PATHINFO_FILENAME);
 			self::$wings[$wingName] = yaml_parse_file($wingPath);
 		}
 		self::$instance = $this;
-		$this->getServer()->getCommandMap()->register("wings", new WingsCommand());
+		$this->getServer()->getCommandMap()->register("EasyWing", new WingsCommand());
+		$this->getServer()->getPluginManager()->registerEvents($this, $this);
+	}
+
+	/**
+	* @param PlayerQuitEvent $event
+	* 
+	* @return void
+	*/
+	public function onQuit(PlayerQuitEvent $event) :void {
+		$player = $event->getPlayer();
+		$this->unEquip($player);
 	}
 
 	/**
@@ -46,6 +60,14 @@ Class Loader extends PluginBase{
 	*/
 	public static function getWings() :array{
 		return self::$wings;
+	}
+
+	/**
+	* @return array
+	*/
+	public function getSetting() :array 
+	{
+ 		return yaml_parse_file($this->getDataFolder(). "config.yml");
 	}
 
 	/**
@@ -75,8 +97,17 @@ Class Loader extends PluginBase{
 			case "4":
 				$particle = new DustParticle($pos, 179, 0, 0);
 				break;
-			default:
-				$particle = new FlameParticle($pos);
+			case "b":
+				$particle = new Particles(Particles::BLUE_FLAME, $pos);
+				break;
+			case "h":
+				$particle = new Particles(Particles::VILLAGER_HAPPY, $pos);
+				break;
+			case "p":
+				$particle = new Particles(Particles::VILLAGER_ANGRY, $pos);
+				break;
+			case "f":
+				$particle = new Particles(Particles::FLAME, $pos);
 				break;
 		}
 		return $particle;
@@ -94,24 +125,23 @@ Class Loader extends PluginBase{
 		$shape = self::getWings()[$wing]["shape"];
 		$lowername = $player->getLowerCaseName();
 		$wingtask = new WingTask($player, $shape);
-
 		if(!isset(self::$equip_players[$lowername])){
+			$this->getScheduler()->scheduleRepeatingTask($wingtask, $this->getSetting()["tick-update"]);
 			self::$equip_players[$lowername]["id"] = $wingtask->getTaskId();
 			self::$equip_players[$lowername]["name"] = $wing;
-			$player->sendMessage("Turn on $wing wing");
-			$this->getScheduler()->scheduleRepeatingTask($wingtask, 5);
+			$player->sendMessage($this->getSetting()["turn-on"]);			
 			return;
 		}
 		if(self::$equip_players[$lowername]["name"] == $wing){
-			$player->sendMessage("Turn off $wing wing");
+			$player->sendMessage($this->getSetting()["turn-off"]);
 			$this->unEquip($player);
 			return;
 		}else{
 			$this->unEquip($player);
+			$this->getScheduler()->scheduleRepeatingTask($wingtask, $this->getSetting()["tick-update"]);
 			self::$equip_players[$lowername]["id"] = $wingtask->getTaskId();
 			self::$equip_players[$lowername]["name"] = $wing;
-			$player->sendMessage("Turn on $wing wing");
-			$this->getScheduler()->scheduleRepeatingTask($wingtask, 5);
+			$player->sendMessage($this->getSetting()["turn-on"]);			
 		}
 	}
 

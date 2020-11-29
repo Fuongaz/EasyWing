@@ -33,7 +33,7 @@ Class WingsForm{
 			$wing = array_keys(Loader::getWings())[$data];
 			$loader->equipWing($player, $wing);
 		});
-		$form->setTitle("WINGS FORM");
+		$form->setTitle($loader->getSetting()["title"]);
 		foreach($loader->getWings() as $wingName){
 			$form->addButton($wingName["Wing-Name"]);
 		}
