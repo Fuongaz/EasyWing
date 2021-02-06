@@ -109,6 +109,9 @@ Class Loader extends PluginBase implements Listener{
 			case "f":
 				$particle = new Particles(Particles::FLAME, $pos);
 				break;
+			default:
+				$particle = new RedstoneParticle($pos);
+				break;
 		}
 		return $particle;
 	}
