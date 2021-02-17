@@ -13,7 +13,7 @@ Class WingTask extends Task{
 	/** @var Player*/
 	private $player;
 	/** @var CustomWing */
-	private $wing = [];
+	private $wing;
 
 	public function __construct(Player $player, array $shape, int $scale = 0.3){
 		$this->player = $player;
