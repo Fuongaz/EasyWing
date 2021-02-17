@@ -54,7 +54,7 @@ Class Loader extends PluginBase{
 	* @return bool
 	*/
 	public static function hasPer(Player $player, string $wing) :bool{
-		return $player->hasPermission("wing.on.".$wing);
+		return $player->hasPermission("easywing.on.".$wing);
 	}
 
 	/**
@@ -92,6 +92,7 @@ Class Loader extends PluginBase{
 			return;
 		}
 		$shape = self::getWings()[$wing]["shape"];
+		$scale = self::getWings()[$wing]["scale"] ?? 0.3;
 		$lowername = $player->getLowerCaseName();
 		$wingtask = new WingTask($player, $shape);
 
