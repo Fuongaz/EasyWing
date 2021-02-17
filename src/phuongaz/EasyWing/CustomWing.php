@@ -15,7 +15,7 @@ class CustomWing {
 	/** @var array */
 	private $vector3 = [];
 
-	public function __construct(array $shape, float $scale = 0.3){
+	public function __construct(array $shape, float $scale){
 		$this->scale = $scale;
 		$this->shape = $shape;
 		$l1 = count($this->shape);
