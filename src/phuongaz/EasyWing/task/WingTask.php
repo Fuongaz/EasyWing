@@ -15,9 +15,9 @@ Class WingTask extends Task{
 	/** @var CustomWing */
 	private $wing;
 
-	public function __construct(Player $player, array $shape, int $scale = 0.3){
+	public function __construct(Player $player, CustomWing $wing){
 		$this->player = $player;
-		$this->wing = new CustomWing($shape, $scale);
+		$this->wing = $wing;
 	}
 
 	/**
