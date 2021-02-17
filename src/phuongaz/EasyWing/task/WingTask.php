@@ -12,12 +12,12 @@ Class WingTask extends Task{
 
 	/** @var Player*/
 	private $player;
-	/** @var array */
-	private $shape = [];
+	/** @var CustomWing */
+	private $wing;
 
-	public function __construct(Player $player, array $shape){
+	public function __construct(Player $player, CustomWing $wing){
 		$this->player = $player;
-		$this->shape = $shape;
+		$this->wing = $wing;
 	}
 
 	/**
@@ -25,7 +25,6 @@ Class WingTask extends Task{
 	*/
 	public function onRun(int $currentTick){
 		$player = $this->player;
-		$wing = new CustomWing($this->shape);
-		$wing->draw($player, $player->yaw);
+		$this->wing->draw($player, $player->yaw);
 	}
 }
