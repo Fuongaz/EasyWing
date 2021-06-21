@@ -10,21 +10,18 @@ use phuongaz\EasyWing\CustomWing;
 
 Class WingTask extends Task{
 
-	/** @var Player*/
-	private $player;
 	/** @var CustomWing */
-	private $wing;
+	private CustomWing $wing;
 
-	public function __construct(Player $player, CustomWing $wing){
-		$this->player = $player;
-		$this->wing = $wing;
-	}
+	public function __construct(private CustomWing $wing){}
 
 	/**
 	* @param int $currentTick
 	*/
 	public function onRun(int $currentTick){
-		$player = $this->player;
-		$this->wing->draw($player, $player->yaw);
+		if($this->wing->getPlayer() == null){
+			$this->getHandler()->cancel();
+		}
+		$this->wing->draw();
 	}
 }

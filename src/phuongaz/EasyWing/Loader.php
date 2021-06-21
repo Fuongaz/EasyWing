@@ -20,11 +20,11 @@ use pocketmine\event\player\PlayerQuitEvent;
 Class Loader extends PluginBase implements Listener{
 
 	/** @var array */
-	private static $equip_players = [];
+	private static array $equip_players = [];
 	/** @var array */
-	private static $wings = [];
+	private static array $wings = [];
 	/** @var self */
-	private static $instance;
+	private static Loader $instance;
 
 	public function onEnable() :void{
 		$this->saveDefaultConfig();
@@ -126,9 +126,10 @@ Class Loader extends PluginBase implements Listener{
 			return;
 		}
 		$shape = self::getWings()[$wing]["shape"];
-		$scale = self::getWings()[$wing]["scale"] ?? 0.3;
+		$scale = self::getWings()[$wing]["scale"];
 		$lowername = $player->getLowerCaseName();
-		$wingtask = new WingTask($player, $shape);
+		$wing = new CustomWing($player, $shape, $scale);
+		$wingtask = new WingTask($wing);
 		if(!isset(self::$equip_players[$lowername])){
 			$this->getScheduler()->scheduleRepeatingTask($wingtask, $this->getSetting()["tick-update"]);
 			self::$equip_players[$lowername]["id"] = $wingtask->getTaskId();

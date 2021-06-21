@@ -1,6 +1,8 @@
 # EasyWing
-
 Wing particle plugin for Pocketmine-MP
+
+<a href="https://poggit.pmmp.io/p/EasyWing"><img src="https://poggit.pmmp.io/shield.state/EasyWing"></a>
+<a href="https://poggit.pmmp.io/p/EasyWing"><img src="https://poggit.pmmp.io/shield.dl.total/EasyWing"></a>
 
 # Feature
  + Add and custom wing in config

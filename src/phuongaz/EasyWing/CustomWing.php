@@ -8,16 +8,17 @@ use pocketmine\math\Vector3;
 
 class CustomWing {
 
-	/**@var int*/
-	private $scale;
+	/**@var float*/
+	private float $scale = 0.3;
 	/** @var array */
-	private $shape = [];
+	private array $shape = [];
 	/** @var array */
-	private $vector3 = [];
+	private array $vector3 = [];
 
-	public function __construct(array $shape, float $scale){
-		$this->scale = $scale;
-		$this->shape = $shape;
+	public function __construct(
+		private Player $player
+		private array $shape,
+		private float $scale){
 		$l1 = count($this->shape);
 		for($y = 0; $y < $l1; $y++) {
 			$l2 = count($this->shape[$y]);
@@ -30,24 +31,34 @@ class CustomWing {
 			}
 		}
 	}
-	
+	/**
+	* @return float
+	*/
 	public function getScale(): float{
 		return $this->scale;
 	}
 
 	/**
-	* @param Position $pos
-	* @param float $angle
+	* @return null|Player
 	*/
-	public function draw(Position $pos, float $angle) :void{
-		$level = $pos->getLevel();
+	public function getPlayer() :?Player{
+		return $this->player;
+	}
+
+	/**
+	* Draw wing
+	*/
+	public function draw() :void{
+		$player = $this->getPlayer();
+		$angle = $player->yaw;
+		$level = $player->getLevel();
 		$sin = sin(deg2rad($angle));
 		$cos = cos(deg2rad($angle));
 		foreach($this->vector3 as $data){
 			$r = $this->getScale() * $data[0]->x;
 			$px = $r * $cos;			
 			$pz = $r * $sin;
-			$level->addParticle(Loader::getInstance()->parseWing($pos->add($px, $data[0]->y, $pz), $data[1]));
+			$level->addParticle(Loader::getInstance()->parseWing($player->add($px, $data[0]->y, $pz), $data[1]));
 		}
 	}
 }
