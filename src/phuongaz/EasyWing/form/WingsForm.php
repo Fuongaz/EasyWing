@@ -9,19 +9,12 @@ use phuongaz\EasyWing\Loader;
 
 Class WingsForm{
 
-	/** @var Player */
-	private $player;
+	private Player $player;
 
-	/**
-	* @param Player $player
-	*/
 	public function __construct(Player $player){
 		$this->player = $player;
 	}
 
-	/**
-	* @return Loader
-	*/
 	public function getLoader() :Loader{
 		return Loader::getInstance();
 	}

@@ -16,8 +16,7 @@ class Particles extends Particle {
     public const VILLAGER_ANGRY = "minecraft:villager_angry";
     public const BLUE_FLAME = "minecraft:blue_flame_particle";
     
-    /** @var string $name */
-    private $name;
+    private string $name;
 
     /**
      * CustomParticle constructor.

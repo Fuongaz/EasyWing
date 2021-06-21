@@ -15,12 +15,6 @@ Class WingsCommand extends Command{
 		parent::__construct("wings", "open wings form");
 	}
 
-	/**
-	* @param CommandSender $sender
-	* @param string $label
-	* @param array $args;
-	* @return bool
-	*/
 	public function execute(CommandSender $sender, string $label, array $args) :bool{
 		if(!$sender instanceof Player) return false;
 		$form = new WingsForm($sender);

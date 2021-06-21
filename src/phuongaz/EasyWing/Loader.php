@@ -4,9 +4,6 @@ namespace phuongaz\EasyWing;
 
 use pocketmine\plugin\PluginBase;
 use pocketmine\Player;
-use phuongaz\EasyWing\task\WingTask;
-use phuongaz\EasyWing\command\WingsCommand;
-use phuongaz\EasyWing\utils\Particles;
 use pocketmine\level\particle\{
 	DustParticle,
 	FlameParticle,
@@ -16,14 +13,13 @@ use pocketmine\level\particle\{
 use pocketmine\math\Vector3;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerQuitEvent;
-
+use phuongaz\EasyWing\task\WingTask;
+use phuongaz\EasyWing\command\WingsCommand;
+use phuongaz\EasyWing\utils\Particles;
 Class Loader extends PluginBase implements Listener{
 
-	/** @var array */
 	private static array $equip_players = [];
-	/** @var array */
 	private static array $wings = [];
-	/** @var self */
 	private static Loader $instance;
 
 	public function onEnable() :void{
@@ -38,51 +34,28 @@ Class Loader extends PluginBase implements Listener{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
 
-	/**
-	* @param PlayerQuitEvent $event
-	* 
-	* @return void
-	*/
 	public function onQuit(PlayerQuitEvent $event) :void {
 		$player = $event->getPlayer();
 		$this->unEquip($player);
 	}
 
-	/**
-	* @return self
-	*/
 	public static function getInstance() :self{
 		return self::$instance;
 	} 
 
-	/**
-	* @return array
-	*/
 	public static function getWings() :array{
 		return self::$wings;
 	}
 
-	/**
-	* @return array
-	*/
 	public function getSetting() :array 
 	{
  		return yaml_parse_file($this->getDataFolder(). "config.yml");
 	}
 
-	/**
-	* @param Player $player
-	* @param string $wing
-	* @return bool
-	*/
 	public static function hasPer(Player $player, string $wing) :bool{
 		return $player->hasPermission("easywing.on.".$wing);
 	}
 
-	/**
-	* @param Vector3 $pos
-	* @param null|string $character
-	*/
 	public function parseWing(Vector3 $pos, $character) :Particle{
 		switch($character){
 			case "x":
@@ -116,10 +89,6 @@ Class Loader extends PluginBase implements Listener{
 		return $particle;
 	}
 
-	/**
-	* @param Player $player
-	* @param string $wing
-	*/
 	public function equipWing(Player $player, string $wing) :void {
 		if(!self::hasPer($player, $wing)){
 			$player->sendMessage("You don't have permission");
@@ -150,9 +119,6 @@ Class Loader extends PluginBase implements Listener{
 		}
 	}
 
-	/**
-	* @param Player $player
-	*/
 	public function unEquip(Player $player) :void{
 		if(isset(self::$equip_players[$player->getLowerCaseName()])){
 			$this->getScheduler()->cancelTask(self::$equip_players[$player->getLowerCaseName()]["id"]);
