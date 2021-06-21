@@ -33,6 +33,6 @@ Wing-Name: "Example Wing"
 ```
 
 # How to get a wing
-+ Add permision to player `wing.on.<wing name>`
++ Add permision to player `easywing.on.<wing name>`
 
-![117837516_1453484918179354_1316757255971479986_n.png](https://www.upsieutoc.com/images/2020/08/18/117837516_1453484918179354_1316757255971479986_n.png)
+<img align="left" widht="auto" height="260" src="https://github.com/ZzKino/EasyWing/blob/master/icon.png?raw=true" alt="Logo">
