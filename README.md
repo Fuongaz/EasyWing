@@ -1,4 +1,5 @@
 # EasyWing
+<img align="right" widht="auto" height="260" src="https://github.com/ZzKino/EasyWing/blob/master/icon.png?raw=true" alt="Logo">
 Wing particle plugin for Pocketmine-MP
 
 <a href="https://poggit.pmmp.io/p/EasyWing"><img src="https://poggit.pmmp.io/shield.state/EasyWing"></a>
@@ -36,5 +37,3 @@ Wing-Name: "Example Wing"
 
 # How to get a wing
 + Add permision to player `easywing.on.<wing name>`
-
-<img align="left" widht="auto" height="260" src="https://github.com/ZzKino/EasyWing/blob/master/icon.png?raw=true" alt="Logo">
