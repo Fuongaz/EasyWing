@@ -8,6 +8,14 @@ use pocketmine\level\particle\{
 	DustParticle,
 	FlameParticle,
 	RedstoneParticle,
+	EntityFlameParticle,
+	EnchantParticle,
+	HeartParticle,
+	PortalParticle,
+	WaterParticle,
+	WaterDripParticle,
+	HappyVillagerParticle,
+	EnchantmentTableParticle,
 	Particle
 };
 use pocketmine\math\Vector3;
@@ -16,6 +24,8 @@ use pocketmine\event\player\PlayerQuitEvent;
 use phuongaz\EasyWing\task\WingTask;
 use phuongaz\EasyWing\command\WingsCommand;
 use phuongaz\EasyWing\utils\Particles;
+use pocketmine\network\mcpe\protocol\SpawnParticleEffectPacket;
+
 Class Loader extends PluginBase implements Listener{
 
 	private static array $equip_players = [];
@@ -79,8 +89,32 @@ Class Loader extends PluginBase implements Listener{
 			case "p":
 				$particle = new Particles(Particles::VILLAGER_ANGRY, $pos);
 				break;
-			case "f":
+			case "F":
 				$particle = new Particles(Particles::FLAME, $pos);
+				break;
+			case "H":
+				$particle = new HeartParticle($pos);
+				break;
+			case "P":
+				$particle = new PortalParticle($pos);
+				break;
+			case "E":
+				$particle = new EntityFlameParticle($pos);
+				break;
+			case "W":
+				$particle = new WaterDripParticle($pos);
+				break;
+			case "w":
+				$particle = new WaterParticle($pos);
+				break;
+			case "j":
+				$particle = new EnchantParticle($pos);
+				break;
+			case "J":
+				$particle = new EnchantmentTableParticle($pos);
+				break;
+			case "D":
+				$particle = new Particles(Particles::DRAGON_BREATH_LINGERING, $pos);
 				break;
 			default:
 				$particle = new RedstoneParticle($pos);
