@@ -28,7 +28,7 @@ class CustomWing {
 		return $this->player;
 	}
 
-	public function draw(){
+	public function draw() :void{
 		$player = $this->getPlayer();
 		$loc = clone $player->getLocation();
 		$space = $this->getScale();
