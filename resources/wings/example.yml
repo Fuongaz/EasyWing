@@ -1,9 +1,20 @@
+# 0: space
 
-# Shapes:
 # 4 : Red Dust
 # 2: Green Dust
 # x: Redstone
 # F: Flame
+# b: Blue Flame
+# h: Villager Happy
+# p: Villager Angry
+# H: Heart
+# P: Portal
+# E: Entity Flame
+# W: Water
+# w: Water Drip
+# j: Enchant
+# J: Enchantment Table
+# D: Dragon Breath Lingering
 
 shape: [
 [0,0,1,1,1,1,0,0,0,0,1,1,1,1,0,0],
