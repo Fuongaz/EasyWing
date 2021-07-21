@@ -16,18 +16,23 @@ use pocketmine\level\particle\{
 	EnchantmentTableParticle,
 	Particle
 };
-use pocketmine\math\Vector3;
 use pocketmine\event\Listener;
 use pocketmine\event\player\PlayerQuitEvent;
+use pocketmine\utils\SingletonTrait;
+use pocketmine\math\Vector3;
 use phuongaz\EasyWing\task\WingTask;
 use phuongaz\EasyWing\command\WingsCommand;
 use phuongaz\EasyWing\utils\Particles;
 
 Class Loader extends PluginBase implements Listener{
+    use SingletonTrait;
 
-	private static array $equip_players = [];
-	private static array $wings = [];
+	private static array $equip_players, $wings;
 	private static Loader $instance;
+
+	public function onLoad() :void{
+	    self::setInstance($this);
+    }
 
 	public function onEnable() :void{
 		$this->saveDefaultConfig();
@@ -36,7 +41,6 @@ Class Loader extends PluginBase implements Listener{
 			$wingName = pathinfo($wingPath, PATHINFO_FILENAME);
 			self::$wings[$wingName] = yaml_parse_file($wingPath);
 		}
-		self::$instance = $this;
 		$this->getServer()->getCommandMap()->register("EasyWing", new WingsCommand());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 	}
@@ -46,16 +50,11 @@ Class Loader extends PluginBase implements Listener{
 		$this->unEquip($player);
 	}
 
-	public static function getInstance() :self{
-		return self::$instance;
-	} 
-
 	public static function getWings() :array{
 		return self::$wings;
 	}
 
-	public function getSetting() :array 
-	{
+	public function getSetting() :array{
  		return yaml_parse_file($this->getDataFolder(). "config.yml");
 	}
 
