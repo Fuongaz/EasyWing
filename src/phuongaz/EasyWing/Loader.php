@@ -6,7 +6,6 @@ use pocketmine\plugin\PluginBase;
 use pocketmine\Player;
 use pocketmine\level\particle\{
 	DustParticle,
-	FlameParticle,
 	RedstoneParticle,
 	EntityFlameParticle,
 	EnchantParticle,
@@ -14,7 +13,6 @@ use pocketmine\level\particle\{
 	PortalParticle,
 	WaterParticle,
 	WaterDripParticle,
-	HappyVillagerParticle,
 	EnchantmentTableParticle,
 	Particle
 };
@@ -24,7 +22,6 @@ use pocketmine\event\player\PlayerQuitEvent;
 use phuongaz\EasyWing\task\WingTask;
 use phuongaz\EasyWing\command\WingsCommand;
 use phuongaz\EasyWing\utils\Particles;
-use pocketmine\network\mcpe\protocol\SpawnParticleEffectPacket;
 
 Class Loader extends PluginBase implements Listener{
 
@@ -143,7 +140,6 @@ Class Loader extends PluginBase implements Listener{
 		if(self::$equip_players[$lowername]["name"] == $wing){
 			$player->sendMessage($this->getSetting()["turn-off"]);
 			$this->unEquip($player);
-			return;
 		}else{
 			$this->unEquip($player);
 			$this->getScheduler()->scheduleRepeatingTask($wingtask, $this->getSetting()["tick-update"]);

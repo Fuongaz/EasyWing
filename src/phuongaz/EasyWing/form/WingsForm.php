@@ -3,7 +3,6 @@
 namespace phuongaz\EasyWing\form;
 
 use pocketmine\Player;
-
 use jojoe77777\FormAPI\SimpleForm;
 use phuongaz\EasyWing\Loader;
 

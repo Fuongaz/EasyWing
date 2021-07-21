@@ -13,7 +13,7 @@ Class WingTask extends Task{
 		$this->wing = $wing;
 	}
 
-	public function onRun(int $currentTick){
+	public function onRun(int $currentTick) :void{
 		if($this->wing->getPlayer() == null){
 			$this->getHandler()->cancel();
 		}

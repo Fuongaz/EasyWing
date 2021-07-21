@@ -2,11 +2,10 @@
 
 namespace phuongaz\EasyWing;
 
-use pocketmine\level\Level;
 use pocketmine\level\Location;
 use pocketmine\math\Vector3;
 use pocketmine\Player;
-use pocketmine\network\mcpe\protocol\SpawnParticleEffectPacket;
+
 class CustomWing {
 
 	private Player $player;
