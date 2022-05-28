@@ -1,8 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace phuongaz\EasyWing\utils;
 
-use pocketmine\level\particle\Particle;
+use pocketmine\world\particle\Particle;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\SpawnParticleEffectPacket;
 
@@ -23,14 +25,12 @@ class Particles extends Particle {
      * @param string $particleName
      * @param Vector3 $pos
      */
-    public function __construct(string $particleName, Vector3 $pos) {
+    public function __construct(string $particleNam) {
         $this->name = $particleName;
-        parent::__construct($pos->getX(), $pos->getY(), $pos->getZ());
     }
 
     public function encode() {
         $pk = new SpawnParticleEffectPacket();
-        $pk->position = $this->asVector3();
         $pk->particleName = $this->name;
         return $pk;
     }

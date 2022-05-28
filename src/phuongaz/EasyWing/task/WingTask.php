@@ -1,22 +1,31 @@
 <?php
 
+declare(strict_types=1);
+
 namespace phuongaz\EasyWing\task;
 
 use pocketmine\scheduler\Task;
+use pocketmine\player\Player;
 use phuongaz\EasyWing\CustomWing;
 
 Class WingTask extends Task{
 
-	private CustomWing $wing;
+	public function __construct(
+		private Player $player,
+		private CustomWing $wing){}
 
-	public function __construct(CustomWing $wing){
-		$this->wing = $wing;
+	public function getWing() :CustomWing{
+		return $this->wing;
 	}
 
-	public function onRun(int $currentTick) :void{
-		if($this->wing->getPlayer() == null){
+	public function getPlayer() :?Player{
+		return $this->player;
+	}
+
+	public function onRun() :void{
+		if($this->getPlayer() == null){
 			$this->getHandler()->cancel();
 		}
-		$this->wing->draw();
+		$this->getWing()->draw($this->getPlayer()->getLocation());
 	}
 }

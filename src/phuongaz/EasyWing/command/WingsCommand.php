@@ -6,7 +6,7 @@ use pocketmine\command\{
 	Command,
 	CommandSender
 };
-use pocketmine\Player;
+use pocketmine\player\Player;
 use phuongaz\EasyWing\form\WingsForm;
 
 Class WingsCommand extends Command{
