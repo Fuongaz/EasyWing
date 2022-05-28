@@ -39,7 +39,7 @@ class Utils {
 			"E" => new EntityFlameParticle(),
 			"W" => new WaterDripParticle(),
 			"w" => new WaterParticle(),
-			"j" => new EnchantParticle(),
+			"j" => new EnchantParticle(new Color(mt_rand(0, 255), mt_rand(0, 255), mt_rand(0, 255))),
 			"J" => new EnchantmentTableParticle(),
 			default => new RedstoneParticle()
 		};
