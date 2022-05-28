@@ -8,7 +8,7 @@ use pocketmine\world\particle\Particle;
 use pocketmine\math\Vector3;
 use pocketmine\network\mcpe\protocol\SpawnParticleEffectPacket;
 
-class Particles extends Particle {
+class Particles implements Particle {
 
     public const DRAGON_BREATH_TRAIL = "minecraft:dragon_breath_trail";
     public const DRAGON_BREATH_LINGERING = "minecraft:dragon_breath_lingering";
