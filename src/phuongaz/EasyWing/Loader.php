@@ -31,13 +31,10 @@ Class Loader extends PluginBase implements Listener{
 		$this->getServer()->getCommandMap()->register("EasyWing", new WingsCommand());
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
 		$this->config = new Config($this->getDataFolder() . "/config.yml", Config::YAML);
-		$i = 0;
 		foreach(glob($this->getDataFolder(). "wings/*.yml") as $wingPath){
 			$wingName = pathinfo($wingPath, PATHINFO_FILENAME);
 			$this->wings[$wingName] = new Config($wingPath, Config::YAML);
-			$i++;
 		}
-		$this->getServer()->getLogger()->info("Loaded $i wings..");
 	}
 
 	public function onQuit(PlayerQuitEvent $event) :void {
